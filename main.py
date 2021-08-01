@@ -14,13 +14,13 @@ def new_db():
     con=sql.connect(s+'.db')
 
 
-def tab_wr():                 #add a new record to table
+def val_tab_amount():                 #add a new record to table
     sch=int(input('set the number of columns(integer): ')) #ask quantity column
     tab=sql.connect('users.db')
     with tab:
         cur=tab.cursor()
-        for sch in p:
-            nam_tab=input('��� �������: ')
+        for sch in p:   #creat a name for column
+            nam_tab=input('name for a column: ')
             cur.execute("ALTER TABLE IF NOT EXISTS 'test' (", nam_tab, " INTEGER)")
             con.commit()
 
@@ -54,17 +54,16 @@ sql = """INSERT INTO zp(zp)
 cursor.execute(sql)
 # применяем изменения к базе данных
 db.commit()
-''' #add a value to table to the db
+''' #add am any value to columns by table
 
 
-'''
- начал создавать возможность сохранять имя и пароль с солью в БД, но заебался,
- понакидал всякой хуйни с ранних наработок, завтра разбиру это дерьмо
-'''
-
+#return function from code
 abc = input('what now? ')   #add the value for
 
-if abc == 'tab_wr': tab_wr()
-elif abc == 'creat_pass_user': creat_pass_user()
-elif abc == 'cr_p_u': creat_pass_user()
-elif abc == 'new_db': new_db()
+if abc == 'val_tab_amount': val_tab_amount() #amount value the table and
+elif abc == 'v_t_a': val_tab_amount()        #do name a columns
+
+elif abc == 'creat_pass_user': creat_pass_user() #creat username and
+elif abc == 'cr_p_u': creat_pass_user()          #password for users
+
+elif abc == 'new_db': new_db() #creat new db with name
