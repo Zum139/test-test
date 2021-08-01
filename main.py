@@ -3,14 +3,19 @@ import os
 import sqlite3 as sql
 
 
-
+p=0
 users = {} # Simple user cargo
 # Add a user
 username = 'Loki'
 password = 'mypassword'
 
+def new_db():
+    s=input ('name for a new db: ') #input name for a new db
+    con=sql.connect(s+'.db')
+
 
 def tab_wr():                 #add a new record to table
+    sch=int(input('set the number of columns(integer): ')) #ask quantity column
     tab=sql.connect('users.db')
     with tab:
         cur=tab.cursor()
@@ -18,13 +23,6 @@ def tab_wr():                 #add a new record to table
             nam_tab=input('��� �������: ')
             cur.execute("ALTER TABLE IF NOT EXISTS 'test' (", nam_tab, " INTEGER)")
             con.commit()
-
-
-abc = input('what now? ')
-if abc == 'tab_wr':
-    tab_wr()
-elif abc == 'creat_pass_user': creat_pass_user()
-elif abc == 'cr_p_u': creat_pass_user()
 
 
 def creat_pass_user():
@@ -63,3 +61,10 @@ db.commit()
  начал создавать возможность сохранять имя и пароль с солью в БД, но заебался,
  понакидал всякой хуйни с ранних наработок, завтра разбиру это дерьмо
 '''
+
+abc = input('what now? ')   #add the value for
+
+if abc == 'tab_wr': tab_wr()
+elif abc == 'creat_pass_user': creat_pass_user()
+elif abc == 'cr_p_u': creat_pass_user()
+elif abc == 'new_db': new_db()
