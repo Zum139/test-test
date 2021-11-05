@@ -1,7 +1,7 @@
 import hashlib as hash
 import os
 import sqlite3 as sql
-
+import urllib.request
 
 p=0
 users = {} # Simple user cargo
@@ -9,20 +9,10 @@ users = {} # Simple user cargo
 username = 'Loki'
 password = 'mypassword'
 
+
 def new_db():
     s=input ('name for a new db: ') #input name for a new db
     con=sql.connect(s+'.db')
-
-
-def val_tab_amount():                 #add a new record to table
-    sch=int(input('set the number of columns(integer): ')) #ask quantity column
-    tab=sql.connect('users.db')
-    with tab:
-        cur=tab.cursor()
-        for sch in p:   #creat a name for column
-            nam_tab=input('name for a column: ')
-            cur.execute("ALTER TABLE IF NOT EXISTS 'test' (", nam_tab, " INTEGER)")
-            con.commit()
 
 
 def creat_pass_user():
@@ -40,6 +30,20 @@ def creat_pass_user():
         print('well done')
 
 
+def val_tab_amount():                 #add a new record to table
+    sch=int(input('set the number of columns(integer): ')) #ask quantity column
+    tab=sql.connect('users.db')
+    with tab:
+        cur=tab.cursor()
+        for sch in p:   #creat a name for column
+            nam_tab=input('name for a column: ')
+            cur.execute("ALTER TABLE IF NOT EXISTS 'test' (", nam_tab, " INTEGER)")
+            con.commit()
+
+
+def show_html_code():
+    f = urllib.request.urlopen("https://www.youtube.com/")
+    print (f.read().decode('utf-8'))
 '''
 #ниже блок кода для работы с базой
 #создаем подключение к БД
@@ -57,6 +61,7 @@ db.commit()
 ''' #add am any value to columns by table
 
 
+
 #return function from code
 abc = input('what now? ')   #add the value for
 
@@ -67,3 +72,5 @@ elif abc == 'creat_pass_user': creat_pass_user() #creat username and
 elif abc == 'cr_p_u': creat_pass_user()          #password for users
 
 elif abc == 'new_db': new_db() #creat new db with name
+
+elif abc == 'sh_html': show_html_code() #creat username and
