@@ -1,76 +1,55 @@
-import hashlib as hash
-import os
-import sqlite3 as sql
-import urllib.request
-
-p=0
-users = {} # Simple user cargo
-# Add a user
-username = 'Loki'
-password = 'mypassword'
+#cd .git/Projects/Lessons/1/5
+import sys
+from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QPushButton
+from PyQt5.QtCore import QCoreApplication
+import PyQt5
+import time
 
 
-def new_db():
-    s=input ('name for a new db: ') #input name for a new db
-    con=sql.connect(s+'.db')
+#Class the window my program
+class MainWindow(QWidget):
+
+    def __init__(self):
+        super().__init__()
+
+        self.initUI()
 
 
-def creat_pass_user():
-    salt = os.urandom(32) # new salt for user
-    key = hash.pbkdf2_hmac('sha256', password.encode('utf-8'), salt, 100000)
-    users[username] = {'salt': salt, 'key': key}
+    def initUI(self):
+        self.w = QWidget()
+        self.setGeometry(300, 300, 250, 150)
+        self.setWindowTitle('My program')
 
-    a = input('password please: ')
-    aa = hash.pbkdf2_hmac('sha256', a.encode('utf-8'), salt, 100000)
-    '''
-    aaa[username] = {'salt': salt, 'key': aa} # is not important the string actually
-    '''
-
-    if aa == key:
-        print('well done')
-
-
-def val_tab_amount():                 #add a new record to table
-    sch=int(input('set the number of columns(integer): ')) #ask quantity column
-    tab=sql.connect('users.db')
-    with tab:
-        cur=tab.cursor()
-        for sch in p:   #creat a name for column
-            nam_tab=input('name for a column: ')
-            cur.execute("ALTER TABLE IF NOT EXISTS 'test' (", nam_tab, " INTEGER)")
-            con.commit()
+        qbtn = QPushButton('Remind', self)
+        qbtn.clicked.connect(RemindsWin())
+        qbtn.resize(qbtn.sizeHint())
+        qbtn.move(50, 50)
+        self.show()
+        #time.sleep(20)
+        #exit(0)
 
 
-def show_html_code():
-    f = urllib.request.urlopen("https://www.youtube.com/")
-    print (f.read().decode('utf-8'))
-'''
-#ниже блок кода для работы с базой
-#создаем подключение к БД
-db = MySQLdb.connect(host="localhost", user="vash_user", passwd="vash_pass", db="py", charset='utf8')
-#используя метод cursor() получаем объект для работы с базой
-cursor = db.cursor()
-#формируем sql запрос на запись
-sql = """INSERT INTO zp(zp)
-        VALUES ('%(zarplata)s')
-        """%{"zarplata":av_zp}
-# исполняем SQL-запрос
-cursor.execute(sql)
-# применяем изменения к базе данных
-db.commit()
-''' #add am any value to columns by table
+class RemindsWin(QWidget):
+
+    def __init__(self):
+        super().__init__()
+
+        self.initUI()
+
+    #window for remind
+    def remindsWin(self):
+        self.setGeometry(300, 300, 350, 150)
+        self.setWindowTitle('Second Window')
+
+        qbtn1 = QPushButton('Back', self)
+        qbtn1.resize(qbtn1.sizeHint())
+        qbtn1.clicked.connect(self.initUI)
+        qbtn1.move(50, 100)
+        qbtn1.show()
 
 
+if __name__ == '__main__':
 
-#return function from code
-abc = input('what now? ')   #add the value for
-
-if abc == 'val_tab_amount': val_tab_amount() #amount value the table and
-elif abc == 'v_t_a': val_tab_amount()        #do name a columns
-
-elif abc == 'creat_pass_user': creat_pass_user() #creat username and
-elif abc == 'cr_p_u': creat_pass_user()          #password for users
-
-elif abc == 'new_db': new_db() #creat new db with name
-
-elif abc == 'sh_html': show_html_code() #creat username and
+    app = QApplication(sys.argv)
+    mw = MainWindow()
+    sys.exit(app.exec_())
